@@ -1,3 +1,3 @@
 (ns socializer.web.views)
 
-(defn index [] "Hello, world!")
+(defn index [] "Hello, World Wide Web!")

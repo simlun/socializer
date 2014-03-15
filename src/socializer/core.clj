@@ -1,7 +1,9 @@
 (ns socializer.core
-  (:gen-class))
+  (:gen-class)
+  (:require [socializer.web :as web]
+            [org.httpkit.server :as httpkit]))
 
 (defn -main
-  "I don't do a whole lot ... yet."
   [& args]
-  (println "Hello, World!"))
+  (println "Hello, World!")
+  (httpkit/run-server web/handler {:port 8000}))

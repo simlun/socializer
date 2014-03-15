@@ -6,6 +6,12 @@
 
 (defroutes my-routes
   (GET "/" [] (views/index))
+
+  (POST "/people"
+        {session :session
+         params :params}
+        (views/store-people session params))
+
   (compojure.route/resources "/")
   (compojure.route/not-found "Page not found"))
 

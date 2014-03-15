@@ -5,5 +5,6 @@
 
 (defn -main
   [& args]
-  (println "Hello, World!")
-  (httpkit/run-server web/handler {:port 8000}))
+  (let [port (Integer. (first args))]
+    (println "Starting Socializer web server on port" port "...")
+    (httpkit/run-server web/handler {:port port})))

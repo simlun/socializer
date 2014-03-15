@@ -10,5 +10,6 @@
   :plugins [[lein-ring "0.8.10"]]
   :ring {:handler socializer.web/handler}
   :main ^:skip-aot socializer.core
+  :uberjar-name "socializer-standalone.jar"
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})

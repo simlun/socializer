@@ -12,6 +12,8 @@
          params :params}
         (views/store-people session params))
 
+  (GET "/people" {session :session} (views/list-people session))
+
   (compojure.route/resources "/")
   (compojure.route/not-found "Page not found"))
 

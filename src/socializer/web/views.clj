@@ -16,3 +16,7 @@
     (pprint people)
     (-> (response "Foo")
         (assoc :session {:people people}))))
+
+(defn list-people [session]
+  (pprint session)
+  (response (str session)))

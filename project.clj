@@ -3,6 +3,7 @@
   :url "http://github.com/simlun/socializer"
   :license {:name "MIT"
             :url "http://opensource.org/licenses/MIT"}
+  :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [compojure "1.1.6"]
                  [javax.servlet/servlet-api "2.5"]

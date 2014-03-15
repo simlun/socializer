@@ -13,4 +13,7 @@
   :main ^:skip-aot socializer.core
   :uberjar-name "socializer-standalone.jar"
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}
+             :dev {:dependencies [[midje "1.6.3"]]
+                   :plugins [[lein-midje "3.1.3"]]}}
+  )

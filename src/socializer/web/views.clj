@@ -3,10 +3,18 @@
   (:require [net.cgrand.enlive-html :as html]))
 
 (html/deftemplate app-template "templates/app.html"
-  []
-  [:head :title] (html/content "Socializer"))
+  [title active-nav content]
+  [:head :title] (html/append title)
+  [:.nav :.active] (html/remove-class "active")
+  [(keyword (str "#nav-" active-nav))] (html/add-class "active")
+  [:#content] (html/content content))
 
-(defn index [] (response (app-template)))
+(html/defsnippet people-form "templates/people-form.html"
+  [:body]
+  [people]
+  [:#people] (html/content (str people)))
+
+(defn index [] (response (app-template "Home" "index" "TBD")))
 
 (defn parse-set-of-people [params]
   (let [{people :people} params
@@ -20,4 +28,6 @@
         (assoc :session {:people people}))))
 
 (defn list-people [session]
-  (response (str session)))
+  (response (app-template "People"
+                          "people"
+                          (people-form (:people session)))))

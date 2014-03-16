@@ -6,7 +6,7 @@
   []
   [:head :title] (html/content "Socializer"))
 
-(defn index [] (app-template))
+(defn index [] (response (app-template)))
 
 (defn parse-set-of-people [params]
   (let [{people :people} params

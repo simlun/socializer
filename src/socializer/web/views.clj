@@ -6,14 +6,14 @@
 
 (defn index [] "Hello, World Wide Web!")
 
-(defn store-people [session params]
-  (println)
-  (pprint session)
-  (pprint params)
+(defn parse-set-of-people [params]
   (let [{people :people} params
         people (clojure.string/split people #"\n")
         people (set people)]
-    (pprint people)
+    people))
+
+(defn store-people [session params]
+  (let [people (parse-set-of-people params)]
     (-> (response "Foo")
         (assoc :session {:people people}))))
 

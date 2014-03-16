@@ -3,6 +3,16 @@
   (:require [socializer.web.views :as views])
   )
 
+(def request-params-sample
+  {:people "A\nB\nC"})
+
+(def expected-people-set
+  #{"A" "B" "C"})
+
+(fact "we can extract a set of people from request params"
+      (views/parse-set-of-people request-params-sample)
+      => expected-people-set)
+
 (fact "we can store a set of people in the session"
-      (views/store-people {} {:people "A\nB\nC"})
-      => (contains {:session {:people #{"A" "B" "C"}}}))
+      (views/store-people {} request-params-sample)
+      => (contains {:session {:people expected-people-set}}))

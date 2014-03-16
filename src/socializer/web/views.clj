@@ -1,10 +1,12 @@
 (ns socializer.web.views
-  (:use clojure.pprint
-        ring.util.response
-        )
-  )
+  (:use ring.util.response)
+  (:require [net.cgrand.enlive-html :as html]))
 
-(defn index [] "Hello, World Wide Web!")
+(html/deftemplate app-template "templates/app.html"
+  []
+  [:head :title] (html/content "Socializer"))
+
+(defn index [] (app-template))
 
 (defn parse-set-of-people [params]
   (let [{people :people} params
@@ -14,9 +16,8 @@
 
 (defn store-people [session params]
   (let [people (parse-set-of-people params)]
-    (-> (response "Foo")
+    (-> (redirect-after-post "/people")
         (assoc :session {:people people}))))
 
 (defn list-people [session]
-  (pprint session)
   (response (str session)))

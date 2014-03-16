@@ -6,6 +6,7 @@
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [compojure "1.1.6"]
+                 [enlive "1.1.5"]
                  [javax.servlet/servlet-api "2.5"]
                  [http-kit "2.1.16"]]
   :plugins [[lein-ring "0.8.10"]]

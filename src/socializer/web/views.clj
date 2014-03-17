@@ -12,9 +12,8 @@
 (html/defsnippet people-form "templates/people-form.html"
   [:body]
   [people]
-  ; TODO List people separated by linebreaks
-  ; TODO Sort people alphabetically
-  [:#people] (html/content (str people)))
+  [:#people] (html/content (clojure.string/join "\n"
+                             (sort people))))
 
 (defn index [] (response (app-template {:title "Home"
                                         :active-nav "index"

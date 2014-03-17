@@ -4,7 +4,7 @@
   )
 
 (def request-params-sample
-  {:people "A\nB\nC"})
+  {:people "A\n \nB\nC\n\n"})
 
 (def expected-people-set
   #{"A" "B" "C"})

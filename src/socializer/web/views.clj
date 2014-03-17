@@ -21,7 +21,10 @@
 
 (defn parse-set-of-people [params]
   (let [{people :people} params
+        people (clojure.string/trim people)
         people (clojure.string/split people #"\n")
+        people (map clojure.string/trim people)
+        people (filter (complement empty?) people)
         people (set people)]
     people))
 

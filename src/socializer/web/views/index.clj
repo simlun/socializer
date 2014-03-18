@@ -7,8 +7,8 @@
   [:head :title] (html/append (:title context))
   [:.nav :.active] (html/remove-class "active")
   [(keyword (str "#nav-" (:active-nav context)))] (html/add-class "active")
-  [:#content] (html/content (:content context)))
+  [:#content] (html/substitute (:content context)))
 
 (defn index [] (response (app-template {:title "Home"
                                         :active-nav "index"
-                                        :content "TODO"})))
+                                        :content ""})))

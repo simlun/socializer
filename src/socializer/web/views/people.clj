@@ -4,7 +4,7 @@
   (:require [net.cgrand.enlive-html :as html]))
 
 (html/defsnippet people-form "templates/people-form.html"
-  [:body]
+  [:#content]
   [people]
   [:#people] (html/content (clojure.string/join "\n"
                              (sort people))))

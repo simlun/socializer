@@ -10,7 +10,7 @@
                  [javax.servlet/servlet-api "2.5"]
                  [http-kit "2.1.16"]]
   :plugins [[lein-ring "0.8.10"]]
-  :ring {:handler socializer.web/handler}
+  :ring {:handler socializer.web.routes/handler}
   :main ^:skip-aot socializer.core
   :uberjar-name "socializer-standalone.jar"
   :target-path "target/%s"

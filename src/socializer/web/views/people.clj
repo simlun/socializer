@@ -21,9 +21,11 @@
 (defn ->store [session params]
   (let [people (parse-set-of-people params)]
     (-> (redirect-after-post "/people")
-        (assoc :session {:people people}))))
+        (assoc :session session)
+        (assoc-in [:session :people] people))))
 
 (defn ->form [session]
-  (response (app-template {:title "People"
+  (response (app-template {:session session
+                           :title "People"
                            :active-nav "people"
                            :content (form-snippet (:people session))})))

@@ -8,8 +8,8 @@
 
 (defroutes my-routes
   (GET "/"
-       []
-       (index/->index))
+       {session :session}
+       (index/->index session))
 
   (GET "/people"
        {session :session}
@@ -23,6 +23,16 @@
   (GET "/groups"
        {session :session}
        (groups/->form session))
+
+  (GET "/groups/:group-name"
+       {session :session
+        {group-name :group-name} :params}
+       (groups/->form session group-name))
+
+  (POST "/groups"
+        {session :session
+         params :params}
+        (groups/->store session params))
 
   (compojure.route/resources "/")
   (compojure.route/not-found "Page not found"))

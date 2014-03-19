@@ -10,7 +10,7 @@
   </head>
   <body>
     <div class="container" id="content">
-      <form role="form" method="post">
+      <form role="form" method="post" action="/groups">
         <div class="row">
           <div class="col-sm-offset-3 col-sm-4">
             <div class="form-group">
@@ -23,8 +23,8 @@
 
               <label for="intention">Intention</label>
               <select class="form-control" name="intention" id="intention">
-                <option>Separate</option>
-                <option>Unite</option>
+                <option value="separate">Separate</option>
+                <option value="unite">Unite</option>
               </select>
 
             </div>
@@ -33,8 +33,8 @@
         <div class="row">
           <div class="col-sm-6 col-sm-offset-3">
             <div class="form-group">
-              <label for="members">Members</label>
-              <textarea id="members" name="members" class="form-control" rows="20"></textarea>
+              <label for="people">Members</label>
+              <textarea id="people" name="people" class="form-control" rows="20"></textarea>
               <p class="help-block pull-right">One unique name per line</p>
             </div>
             <button type="submit" class="btn btn-default">Save</button>

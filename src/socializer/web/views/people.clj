@@ -3,7 +3,7 @@
         [socializer.web.views.index :only [app-template]])
   (:require [net.cgrand.enlive-html :as html]))
 
-(html/defsnippet people-form "templates/people-form.html"
+(html/defsnippet form-snippet "templates/people-form.html"
   [:#content]
   [people]
   [:#people] (html/content (clojure.string/join "\n"
@@ -18,13 +18,12 @@
         people (set people)]
     people))
 
-(defn store-people [session params]
+(defn ->store [session params]
   (let [people (parse-set-of-people params)]
     (-> (redirect-after-post "/people")
         (assoc :session {:people people}))))
 
-(defn list-people [session]
+(defn ->form [session]
   (response (app-template {:title "People"
                            :active-nav "people"
-                           :content (people-form (:people session))})))
-
+                           :content (form-snippet (:people session))})))

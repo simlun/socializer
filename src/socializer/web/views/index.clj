@@ -9,6 +9,6 @@
   [(keyword (str "#nav-" (:active-nav context)))] (html/add-class "active")
   [:#content] (html/substitute (:content context)))
 
-(defn index [] (response (app-template {:title "Home"
+(defn ->index [] (response (app-template {:title "Home"
                                         :active-nav "index"
                                         :content ""})))

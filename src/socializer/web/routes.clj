@@ -7,16 +7,22 @@
             [socializer.web.views.groups :as groups]))
 
 (defroutes my-routes
-  (GET "/" [] (index/index))
+  (GET "/"
+       []
+       (index/->index))
+
+  (GET "/people"
+       {session :session}
+       (people/->form session))
 
   (POST "/people"
         {session :session
          params :params}
-        (people/store-people session params))
+        (people/->store session params))
 
-  (GET "/people" {session :session} (people/list-people session))
-
-  (GET "/groups" {session :session} (groups/form-page session))
+  (GET "/groups"
+       {session :session}
+       (groups/->form session))
 
   (compojure.route/resources "/")
   (compojure.route/not-found "Page not found"))

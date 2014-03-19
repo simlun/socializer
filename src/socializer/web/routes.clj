@@ -3,7 +3,8 @@
   (:require compojure.handler
             compojure.route
             [socializer.web.views.index :as index]
-            [socializer.web.views.people :as people]))
+            [socializer.web.views.people :as people]
+            [socializer.web.views.groups :as groups]))
 
 (defroutes my-routes
   (GET "/" [] (index/index))
@@ -14,6 +15,8 @@
         (people/store-people session params))
 
   (GET "/people" {session :session} (people/list-people session))
+
+  (GET "/groups" {session :session} (groups/form-page session))
 
   (compojure.route/resources "/")
   (compojure.route/not-found "Page not found"))

@@ -27,4 +27,4 @@
   (response (app-template {:session session
                            :title "Home"
                            :active-nav "index"
-                           :content (str session)})))
+                           :content ""})))

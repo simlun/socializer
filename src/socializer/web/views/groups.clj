@@ -1,8 +1,8 @@
 (ns socializer.web.views.groups
   (:use ring.util.response
-        [socializer.web.views.index :only [app-template]]
         [socializer.web.views.people :only [parse-set-of-people]])
-  (:require [net.cgrand.enlive-html :as html]))
+  (:require [socializer.web.views.template :as template]
+            [net.cgrand.enlive-html :as html]))
 
 
 (html/defsnippet form-snippet "templates/group-form.html"
@@ -19,17 +19,17 @@
 
 (defn ->form
   ([session]
-   (response (app-template {:session session
-                            :title "Add Group"
-                            :active-nav "groups"
-                            :content (form-snippet "" {})})))
+   (response (template/base {:session session
+                             :title "Add Group"
+                             :active-nav "groups"
+                             :content (form-snippet "" {})})))
   ([session group-name]
-   (response (app-template {:session session
-                            :title "Edit Group"
-                            :active-nav "groups"
-                            :content (form-snippet
-                                       group-name
-                                       (get (:groups session) group-name))}))))
+   (response (template/base {:session session
+                             :title "Edit Group"
+                             :active-nav "groups"
+                             :content (form-snippet
+                                        group-name
+                                        (get (:groups session) group-name))}))))
 
 
 (defn ->store [session params]

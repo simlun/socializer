@@ -16,6 +16,7 @@
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
              :dev {:dependencies [[ring/ring-devel "1.2.1"]
+                                  [ring-mock "0.1.5"]
                                   [midje "1.6.3"]]
                    :plugins [[lein-midje "3.1.3"]]}}
   )

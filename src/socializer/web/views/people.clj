@@ -1,7 +1,7 @@
 (ns socializer.web.views.people
-  (:use ring.util.response
-        [socializer.web.views.index :only [app-template]])
-  (:require [net.cgrand.enlive-html :as html]))
+  (:use ring.util.response)
+  (:require [socializer.web.views.template :as template]
+            [net.cgrand.enlive-html :as html]))
 
 (html/defsnippet form-snippet "templates/people-form.html"
   [:#content]
@@ -25,7 +25,7 @@
         (assoc-in [:session :people] people))))
 
 (defn ->form [session]
-  (response (app-template {:session session
-                           :title "People"
-                           :active-nav "people"
-                           :content (form-snippet (:people session))})))
+  (response (template/base {:session session
+                            :title "People"
+                            :active-nav "people"
+                            :content (form-snippet (:people session))})))

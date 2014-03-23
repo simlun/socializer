@@ -13,4 +13,5 @@
   "/"          200
   "/people"    200
   "/groups"    200
+  "/events"    200
   "/data"      200)

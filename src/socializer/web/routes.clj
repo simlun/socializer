@@ -5,6 +5,7 @@
             [socializer.web.views.index :as index]
             [socializer.web.views.people :as people]
             [socializer.web.views.groups :as groups]
+            [socializer.web.views.events :as events]
             [socializer.web.views.data :as data]))
 
 (defroutes my-routes
@@ -34,6 +35,10 @@
         {session :session
          params :params}
         (groups/->store session params))
+
+  (GET "/events"
+       {session :session}
+       (events/->form session))
 
   (GET "/data"
        {session :session}

@@ -8,6 +8,7 @@ Definitions
 - Groups/Group
 - Events/Event
 - Participations/Participation
+- Participants
 - Rooms/Room
 - Tables/Table
 - Chairs/Chair

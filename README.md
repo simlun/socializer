@@ -271,7 +271,19 @@ User Stories
 ============
 
 - Ellinor creates a list of people in a text area of names separated by line breaks.
-- Ellinor creates an event giving it a name, date, line break separated list of names of guests and a similar list of tables. The list of tables are on the form of `<table name>: <table type>: <nr of chairs>`.
+- Ellinor creates an event giving it a name, date, line break separated list of names of guests and a similar list of tables. 
+- (The list of tables are on the form of `<table name>: <table type>: <nr of chairs>`.)
+
+- The tables are entered as a 2D matrix in a text field.
+
+<pre>
+A B C
+D - E
+- F -
+</pre>
+
+- Each table type have a predefined chair numbering. Chairs are placed at rectangular tables like houses on a street. (Even on one side, odd on the other). Round just around the table.
+
 - Ellinor groups the people by entering a group name and the names of the members. (Groups that should not sit with each other by the force of a given weight).
 
 - Now Ellinor just wants the seating list as output.

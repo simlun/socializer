@@ -9,7 +9,7 @@
   #{"A" "B" "C"})
 
 (fact "we can extract a set of people from request params"
-      (people/parse-set-of-people request-params-sample)
+      (people/parse-people request-params-sample)
       => expected-people-set)
 
 (fact "we can store a set of people in the session"

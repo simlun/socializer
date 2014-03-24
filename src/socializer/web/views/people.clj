@@ -7,19 +7,20 @@
   [:#content]
   [people]
   [:#people] (html/content (clojure.string/join "\n"
-                             (sort people))))
+                                                (sort people))))
 
-(defn parse-set-of-people [params]
-  (let [{people :people} params
-        people (clojure.string/trim people)
-        people (clojure.string/split people #"\n")
-        people (map clojure.string/trim people)
-        people (filter (complement empty?) people)
-        people (set people)]
-    people))
+(defn parse-people [params]
+  ; TODO Take people instead of params as input?
+  (let [{people :people} params]
+    (->> people
+         (clojure.string/trim)
+         (clojure.string/split-lines)
+         (map clojure.string/trim)
+         (filter (complement empty?))
+         (set))))
 
 (defn ->store [session params]
-  (let [people (parse-set-of-people params)]
+  (let [people (parse-people params)]
     (-> (redirect-after-post "/people")
         (assoc :session session)
         (assoc-in [:session :people] people))))

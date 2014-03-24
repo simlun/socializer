@@ -40,6 +40,11 @@
        {session :session}
        (events/->form session))
 
+  (POST "/events"
+        {session :session
+         params :params}
+        (events/->store session params))
+
   (GET "/data"
        {session :session}
        (data/->form session))

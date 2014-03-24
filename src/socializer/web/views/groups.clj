@@ -1,6 +1,6 @@
 (ns socializer.web.views.groups
   (:use ring.util.response
-        [socializer.web.views.people :only [parse-set-of-people]])
+        [socializer.web.views.people :only [parse-people]])
   (:require [socializer.web.views.template :as template]
             [net.cgrand.enlive-html :as html]))
 
@@ -35,7 +35,7 @@
 (defn ->store [session params]
   (let [group-name (:group-name params)
         group {:intention (:intention params)
-               :members (parse-set-of-people params)}]
+               :members (parse-people params)}]
     (-> (redirect-after-post "/groups")
         (assoc :session session)
         (assoc-in [:session :groups group-name] group))))

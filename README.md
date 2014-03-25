@@ -8,9 +8,10 @@ Definitions
 - Groups/Group
 - Events/Event
 - Participations/Participation
-- Participants
+- Participants/Participant
 - Rooms/Room
 - Tables/Table
+- Shapes/Shape
 - Chairs/Chair
 - Distances/Distance
 - Placements/Placement
@@ -22,14 +23,17 @@ Summary
 -------
 
 - A minimization problem
-- Minimize the total `social distance` between all pairs of people, accumulated over all participations.
+- Minimize the total `social distance` between all pairs of
+people, accumulated over all participations.
 
 
 Todo's
 ------
 
-- Different people attending different events (participation)
-- Grouping of people (affects seating)
+- Merge sets of people from all different input fields into the
+people input field. (People first seen when adding them to a group
+are also shown on the People page).
+- Removing people from the People page removes them from events and groups.
 - Different table types:
     - Classic rectangular 2-sided
     - Rectangular 4-sided
@@ -51,7 +55,7 @@ Thoughts
         - Nr of chairs wide
         - Nr of chairs deep
     - Precalculated in the graph? The chairs at the tables are complete graphs?
-- Can social distance increase? No?
+- Can social distance increase? No? Yes, per day?
 - I can do a full search for the minimum total social distance for each seating?
 - Real time analysis for manually switching seats with people.
 
@@ -67,28 +71,6 @@ Inputs
     - Associated with 1 or more unique Tables
 - Tables
     - Associated with 1 or more unique Chairs
-
-
-### Data
-
-    ;; People
-    [
-    {:name "Alice"}
-    {:name "Bob"}
-    {:name "Cathrin"}
-    {:name "Dave"}
-    {:name "Erin"}
-    {:name "Fred"}
-    ]
-
-    ;; Events
-    [
-    {:name "Dinner", :datetime "2014-05-15 18:00, :tables [{:name "A", :type :rectangular, :nr-chairs 6}]}
-    {:name "Lunch", :datetime "2014-05-16 12:00", :tables [{:name "A", :type :rectangular, :nr-chairs 2}
-                                                           {:name "B", :type :rectangular, :nr-chairs 2}
-                                                           {:name "C", :type :rectangular, :nr-chairs 2}]}
-    ]
-
 
 
     ;; Starting social distances
@@ -114,7 +96,7 @@ Outputs
 - Seatings
     - Associated with a Person, Event and a Chair
 
-### Example
+### Example of placing people at a rectangular table
 
     ;; Dinner
  
@@ -271,28 +253,29 @@ Ex:
 User Stories
 ============
 
-- Ellinor creates a list of people in a text area of names separated by line breaks.
-- Ellinor creates an event giving it a name, date, line break separated list of names of guests and a similar list of tables. 
-- (The list of tables are on the form of `<table name>: <table type>: <nr of chairs>`.)
+- Ellinor creates a list of people in a text area of names separated by
+line breaks.
+- Ellinor creates an event giving it a name, date, line break
+separated list of names of guests and a similar list of tables. 
+- (The list of tables are on the form of `<table name> <table shape> <nr
+of chairs>`.)
 
-- The tables are entered as a 2D matrix in a text field.
+- Each table type have a predefined chair numbering. Chairs are placed at
+rectangular tables like houses on a street. (Even on one side, odd on the
+other). Round just around the table.
 
-<pre>
-A B C
-D - E
-- F -
-</pre>
-
-- Each table type have a predefined chair numbering. Chairs are placed at rectangular tables like houses on a street. (Even on one side, odd on the other). Round just around the table.
-
-- Ellinor groups the people by entering a group name and the names of the members. (Groups that should not sit with each other by the force of a given weight).
+- Ellinor groups the people by entering a group name and the names of the
+members. (Groups that should not sit with each other by the force of a given
+weight).
 
 - Now Ellinor just wants the seating list as output.
     - Shown per event
     - Primarily a list of people at numbered chairs at named tables, sorted by person names
     - Also an interactive graphical representation.
 
-- Ellinor identifies two people which should not sit together. Selecting one person in the GUI shows a heat map of the effect of swapping the selected person with all the other people.
+- Ellinor identifies two people which should not sit together. Selecting one
+person in the GUI shows a heat map of the effect of swapping the selected
+person with all the other people.
 
 
 Pseudocode v1
@@ -351,32 +334,5 @@ Pseudocode v2
 ; ...events?!
 
 
-
-
-
-
-
-
-
 </pre>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

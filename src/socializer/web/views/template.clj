@@ -12,11 +12,18 @@
   [(keyword (str "#nav-" (:active-nav context)))] (html/add-class "active")
 
   [:.groups :.group]
-  (html/clone-for [[group-name group] (:groups (:session context))]
-                  [:.name] (html/content group-name)
-                  [:a] (html/set-attr :href (str "/groups/"
-                                                 (url-encode group-name)))
-                  [:.count] (html/content (str (count (:members group)))))
+    (html/clone-for [[group-name group] (:groups (:session context))]
+                    [:a] (html/set-attr :href (str "/groups/"
+                                                   (url-encode group-name)))
+                    [:.name] (html/content group-name)
+                    [:.count] (html/content (str (count (:members group)))))
+
+  [:.events :.event]
+    (html/clone-for [[event-key event] (:events (:session context))]
+                    [:a] (html/set-attr :href (str "/events/"
+                                                   (url-encode event-key)))
+                    [:.name] (html/content event-key)
+                    [:.count] (html/content (str (count (:participants event)))))
 
   [:#content] (html/substitute (:content context)))
 

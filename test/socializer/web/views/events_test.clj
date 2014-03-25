@@ -2,7 +2,14 @@
   (:use midje.sweet)
   (:require [socializer.web.views.events :as events]))
 
-(def tables-str "\nA rectangular 6\n\nB rectangular 4\nC circular 5")
+(def tables-str "\nA rectangular 6\n\nC circular 5\nB rectangular 4\n\n")
+(def room {"A" {:shape :rectangular
+                :nr-chairs 6}
+           "B" {:shape :rectangular
+                :nr-chairs 4}
+           "C" {:shape :circular
+                :nr-chairs 5}})
+(def unparsed-tables-str "A rectangular 6\nB rectangular 4\nC circular 5")
 
 (def request-params-event-1
   {:event-name "Lunch"
@@ -17,13 +24,6 @@
    ;:time "18:00" ;; TODO
    :tables "A rectangular 6\nB rectangular 4\nC circular 5"
    :people "Alice\n \nBob\nCathy\n\nDave\nErin\nFred\nGretl\nHarald\nIrene\nJacob\nKaren\nLinus\nMatilda\nNiel\nOlga"})
-
-(def room {"A" {:shape :rectangular
-                :nr-chairs 6}
-           "B" {:shape :rectangular
-                :nr-chairs 4}
-           "C" {:shape :circular
-                :nr-chairs 5}})
 
 (def participants #{"Alice" "Bob" "Cathy" "Dave" "Erin" "Fred" "Gretl" "Harald"
                     "Irene" "Jacob" "Karen" "Linus" "Matilda" "Niel" "Olga"})
@@ -50,13 +50,15 @@
 (fact "A multi line table spec can be parsed to a data structure"
   (events/parse-tables tables-str) => room)
 
-(fact "we can store an event in the session"
+(fact "We can store an event in the session"
       (:session (events/->store existing-session
                                 request-params-event-1))
       => expected-session-1)
 
-(fact "we are redirected after storing events"
+(fact "We are redirected after storing events"
       (events/->store existing-session
                       request-params-event-1)
       => (contains {:status 303}))
 
+(fact "Table data can be converted back to string representation"
+      (events/unparse-tables room) => unparsed-tables-str)

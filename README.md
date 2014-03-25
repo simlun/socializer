@@ -30,6 +30,7 @@ people, accumulated over all participations.
 Todo's
 ------
 
+- Delete groups and events
 - Merge sets of people from all different input fields into the
 people input field. (People first seen when adding them to a group
 are also shown on the People page).

@@ -5,22 +5,6 @@
             [socializer.web.views.template :as template]
             [net.cgrand.enlive-html :as html]))
 
-(html/defsnippet form-snippet "templates/event-form.html"
-  [:#content]
-  [event-name event]
-
-  ; TODO
-  ;[:#event-name] (html/set-attr :value event-name)
-
-  [:#people] (html/content (clojure.string/join "\n" (sort (:participants event)))))
-
-(defn ->form
-  ([session]
-   (response (template/base {:session session
-                             :title "Add Event"
-                             :active-nav "events"
-                             :content (form-snippet "" {})}))))
-
 (defn- split-words
   [words]
   (clojure.string/split words #"\s+"))
@@ -45,6 +29,44 @@
        (filter (complement empty?))
        (map parse-table-line)
        (apply merge)))
+
+(defn unparse-tables
+  [tables]
+  (clojure.string/join "\n"
+                       (sort (map #(str %
+                                        " "
+                                        (name (:shape (get tables %)))
+                                        " "
+                                        (:nr-chairs (get tables %)))
+                                  (keys tables)))))
+
+(html/defsnippet form-snippet "templates/event-form.html"
+  [:#content]
+  [event]
+
+  [:#event-name] (html/set-attr :value (:event-name event))
+
+  [:#date] (html/set-attr :value (:date event))
+
+  [:#tables] (html/content (unparse-tables (:tables event)))
+
+  [:#people] (html/content
+               (clojure.string/join "\n"
+                                    (sort (:participants event))))
+  )
+
+(defn ->form
+  ([session]
+   (response (template/base {:session session
+                             :title "Add Event"
+                             :active-nav "events"
+                             :content (form-snippet {})})))
+  ([session event-key]
+   (response (template/base {:session session
+                             :title "Edit Event"
+                             :active-nav "events"
+                             :content (form-snippet (get (:events session)
+                                                         event-key))}))))
 
 (defn ->store
   [session params]

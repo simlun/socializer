@@ -57,4 +57,5 @@
   (compojure.route/resources "/")
   (compojure.route/not-found "Page not found"))
 
-(def handler (compojure.handler/site my-routes))
+(def handler (-> my-routes
+                 compojure.handler/site))

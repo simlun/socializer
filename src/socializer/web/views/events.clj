@@ -1,5 +1,6 @@
 (ns socializer.web.views.events
-  (:use ring.util.response
+  (:use [socializer.web.util :only [response]]
+        [ring.util.response :only [redirect-after-post]]
         [socializer.web.views.people :only [parse-people]])
   (:require [clojure.string :as string]
             [socializer.web.views.template :as template]

@@ -1,5 +1,6 @@
 (ns socializer.web.views.people
-  (:use ring.util.response)
+  (:use [socializer.web.util :only [response]]
+        [ring.util.response :only [redirect-after-post]])
   (:require [socializer.web.views.template :as template]
             [net.cgrand.enlive-html :as html]))
 

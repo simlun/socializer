@@ -1,6 +1,6 @@
 (ns socializer.web.views.data
-  (:use clojure.pprint
-        ring.util.response)
+  (:use [socializer.web.util :only [response]]
+        clojure.pprint)
   (:require [socializer.web.views.template :as template]
             [net.cgrand.enlive-html :as html]))
 

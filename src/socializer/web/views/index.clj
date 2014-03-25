@@ -1,5 +1,5 @@
 (ns socializer.web.views.index
-  (:use ring.util.response)
+  (:use [socializer.web.util :only [response]])
   (:require [socializer.web.views.template :as template]))
 
 (defn ->index

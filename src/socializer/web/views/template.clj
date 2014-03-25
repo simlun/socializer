@@ -1,6 +1,5 @@
 (ns socializer.web.views.template
-  (:use ring.util.response
-        ring.util.codec)
+  (:use ring.util.codec)
   (:require [net.cgrand.enlive-html :as html]))
 
 (html/deftemplate base "templates/base.html"

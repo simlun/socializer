@@ -11,6 +11,13 @@
                 :nr-chairs 5}})
 (def unparsed-tables-str "A rectangular 6\nB rectangular 4\nC circular 5")
 
+(fact "A multi line table spec can be parsed to a data structure"
+  (events/parse-tables tables-str) => room)
+
+(fact "Table data can be converted back to string representation"
+      (events/unparse-tables room) => unparsed-tables-str)
+
+
 (def request-params-event-1
   {:event-name "Lunch"
    :date "2014-02-25"
@@ -41,24 +48,23 @@
 (def existing-session {:foo 4711})
 
 (def expected-session-1 {:foo 4711
-                        :events {"2014-02-25 Lunch" event-1}})
+                         :events {"2014-02-25 Lunch" event-1}})
 
 (def expected-session-2 {:foo 4711
-                        :events {"2014-02-25 Lunch" event-1
-                                 "2014-02-25 Dinner" event-2}})
-
-(fact "A multi line table spec can be parsed to a data structure"
-  (events/parse-tables tables-str) => room)
+                         :events {"2014-02-25 Lunch" event-1
+                                  "2014-02-25 Dinner" event-2}})
 
 (fact "We can store an event in the session"
       (:session (events/store existing-session
-                                request-params-event-1))
+                              request-params-event-1))
       => expected-session-1)
+
+(fact "We can store another event in the session too"
+      (:session (events/store expected-session-1
+                              request-params-event-2))
+      => expected-session-2)
 
 (fact "We are redirected after storing events"
       (events/store existing-session
-                      request-params-event-1)
+                    request-params-event-1)
       => (contains {:status 303}))
-
-(fact "Table data can be converted back to string representation"
-      (events/unparse-tables room) => unparsed-tables-str)

@@ -44,17 +44,11 @@
 (html/defsnippet form-snippet "templates/event-form.html"
   [:#content]
   [event]
-
   [:#event-name] (html/set-attr :value (:event-name event))
-
   [:#date] (html/set-attr :value (:date event))
-
   [:#tables] (html/content (unparse-tables (:tables event)))
-
-  [:#people] (html/content
-               (clojure.string/join "\n"
-                                    (sort (:participants event))))
-  )
+  [:#people] (html/content (clojure.string/join "\n"
+                                                (sort (:participants event)))))
 
 (defn form
   ([session]

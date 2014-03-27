@@ -9,7 +9,7 @@
   [data]
   [:#data] (html/content (with-out-str (pprint data))))
 
-(defn ->form [session]
+(defn form [session]
   (response (template/base {:session session
                             :title "Data"
                             :active-nav ""

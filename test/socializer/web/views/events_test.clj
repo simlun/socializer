@@ -51,12 +51,12 @@
   (events/parse-tables tables-str) => room)
 
 (fact "We can store an event in the session"
-      (:session (events/->store existing-session
+      (:session (events/store existing-session
                                 request-params-event-1))
       => expected-session-1)
 
 (fact "We are redirected after storing events"
-      (events/->store existing-session
+      (events/store existing-session
                       request-params-event-1)
       => (contains {:status 303}))
 

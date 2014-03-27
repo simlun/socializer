@@ -13,9 +13,9 @@
       => expected-people-set)
 
 (fact "we can store a set of people in the session"
-      (people/->store {} request-params-sample)
+      (people/store {} request-params-sample)
       => (contains {:session {:people expected-people-set}}))
 
 (fact "we are redirected after storing people"
-      (people/->store {} request-params-sample)
+      (people/store {} request-params-sample)
       => (contains {:status 303}))

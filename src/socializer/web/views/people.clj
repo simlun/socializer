@@ -20,13 +20,13 @@
          (filter (complement empty?))
          (set))))
 
-(defn ->store [session params]
+(defn store [session params]
   (let [people (parse-people params)]
     (-> (redirect-after-post "/people")
         (assoc :session session)
         (assoc-in [:session :people] people))))
 
-(defn ->form [session]
+(defn form [session]
   (response (template/base {:session session
                             :title "People"
                             :active-nav "people"

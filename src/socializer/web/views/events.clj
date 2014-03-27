@@ -56,7 +56,7 @@
                                     (sort (:participants event))))
   )
 
-(defn ->form
+(defn form
   ([session]
    (response (template/base {:session session
                              :title "Add Event"
@@ -69,7 +69,7 @@
                              :content (form-snippet (get (:events session)
                                                          event-key))}))))
 
-(defn ->store
+(defn store
   [session params]
   (let [event-key (str (:date params) " " (:event-name params))
         event {:event-name (:event-name params)

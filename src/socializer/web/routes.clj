@@ -11,48 +11,48 @@
 (defroutes my-routes
   (GET "/"
        {session :session}
-       (index/->index session))
+       (index/index session))
 
   (GET "/people"
        {session :session}
-       (people/->form session))
+       (people/form session))
 
   (POST "/people"
         {session :session
          params :params}
-        (people/->store session params))
+        (people/store session params))
 
   (GET "/groups"
        {session :session}
-       (groups/->form session))
+       (groups/form session))
 
   (GET "/groups/:group-name"
        {session :session
         {group-name :group-name} :params}
-       (groups/->form session group-name))
+       (groups/form session group-name))
 
   (POST "/groups"
         {session :session
          params :params}
-        (groups/->store session params))
+        (groups/store session params))
 
   (GET "/events"
        {session :session}
-       (events/->form session))
+       (events/form session))
 
   (GET "/events/:event-key"
        {session :session
         {event-key :event-key} :params}
-       (events/->form session event-key))
+       (events/form session event-key))
 
   (POST "/events"
         {session :session
          params :params}
-        (events/->store session params))
+        (events/store session params))
 
   (GET "/data"
        {session :session}
-       (data/->form session))
+       (data/form session))
 
   (compojure.route/resources "/")
   (compojure.route/not-found "Page not found"))

@@ -18,7 +18,7 @@
   [:#people] (html/content (clojure.string/join "\n" (sort (:members group)))))
 
 
-(defn ->form
+(defn form
   ([session]
    (response (template/base {:session session
                              :title "Add Group"
@@ -33,7 +33,7 @@
                                         (get (:groups session) group-name))}))))
 
 
-(defn ->store [session params]
+(defn store [session params]
   (let [group-name (:group-name params)
         group {:intention (:intention params)
                :members (parse-people params)}]

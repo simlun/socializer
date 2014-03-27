@@ -12,5 +12,5 @@
 (defn form [session]
   (response (template/base {:session session
                             :title "Data"
-                            :active-nav ""
+                            :active-nav "data"
                             :content (form-snippet session)})))

@@ -6,6 +6,7 @@
             [socializer.web.views.people :as people]
             [socializer.web.views.groups :as groups]
             [socializer.web.views.events :as events]
+            [socializer.web.views.seating :as seating]
             [socializer.web.views.data :as data]))
 
 (defroutes my-routes
@@ -49,6 +50,10 @@
         {session :session
          params :params}
         (events/store session params))
+
+  (GET "/seating-plan"
+       {session :session}
+       (seating/plan session))
 
   (GET "/data"
        {session :session}

@@ -9,9 +9,10 @@
       (sut/handler (request :get ?url))
       => (contains {:status ?status}))
   ?url       ?status
-  "/notfoundz" 404
-  "/"          200
-  "/people"    200
-  "/groups"    200
-  "/events"    200
-  "/data"      200)
+  "/notfoundz"    404
+  "/"             200
+  "/people"       200
+  "/groups"       200
+  "/events"       200
+  "/seating-plan" 200
+  "/data"         200)

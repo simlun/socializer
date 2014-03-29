@@ -208,20 +208,20 @@ Outputs
 ### Data
 
     [
-    {:name "A", :type :rectangular, :placements [{:name "Alice"}
-                                                 {:name "Erin"}]}
-    {:name "B", :type :rectangular, :placements [{:name "Fred"}
-                                                 {:name "Dave"}
-                                                 {:name "Bob"}]}
-    ; etc...
-    ]
-
-    [
     {:person-name "Alice", :table-name "A", :chair-nr 0}
     {:person-name "Bob", :table-name "B", :chair-nr 2}
     {:person-name "Dave", :table-name "B", :chair-nr 1}
     {:person-name "Erin", :table-name "A", :chair-nr 1}
     {:person-name "Fred", :table-name "B", :chair-nr 0}
+    ; etc...
+    ]
+
+    [
+    {:name "A", :type :rectangular, :placements [{:name "Alice"}
+                                                 {:name "Erin"}]}
+    {:name "B", :type :rectangular, :placements [{:name "Fred"}
+                                                 {:name "Dave"}
+                                                 {:name "Bob"}]}
     ; etc...
     ]
 

@@ -65,11 +65,13 @@
 
 (defn store
   [session params]
-  (let [event-key (str (:date params) " " (:event-name params))
+  (let [time-str (str (:hour params) ":" (:minute params))
+        event-key (str (:date params) " " time-str " " (:event-name params))
         event {:event-name (:event-name params)
                :date (:date params)
+               :time time-str
                :tables (parse-tables (:tables params))
                :participants (parse-people params)}]
     (-> (redirect-after-post "/events")
-      (assoc :session session)
-      (assoc-in [:session :events event-key] event))))
+        (assoc :session session)
+        (assoc-in [:session :events event-key] event))))

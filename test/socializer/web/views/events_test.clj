@@ -21,14 +21,16 @@
 (def request-params-event-1
   {:event-name "Lunch"
    :date "2014-02-25"
-   ;:time "12:00" ;; TODO
+   :hour "12"
+   :minute "00"
    :tables tables-str
    :people "Alice\nAlice\nBob \nCathy\n \nDave\nErin\nFred\nGretl\nHarald\nIrene\nJacob\nKaren\nLinus\nMatilda\nNiel\nOlga"})
 
 (def request-params-event-2
   {:event-name "Dinner"
    :date "2014-02-25"
-   ;:time "18:00" ;; TODO
+   :hour "18"
+   :minute "00"
    :tables "A rectangular 6\nB rectangular 4\nC circular 5"
    :people "Alice\n \nBob\nCathy\n\nDave\nErin\nFred\nGretl\nHarald\nIrene\nJacob\nKaren\nLinus\nMatilda\nNiel\nOlga"})
 
@@ -37,22 +39,24 @@
 
 (def event-1 {:event-name "Lunch"
               :date "2014-02-25"
+              :time "12:00"
               :tables room
               :participants participants})
 
 (def event-2 {:event-name "Dinner"
               :date "2014-02-25"
+              :time "18:00"
               :tables room
               :participants participants})
 
 (def existing-session {:foo 4711})
 
 (def expected-session-1 {:foo 4711
-                         :events {"2014-02-25 Lunch" event-1}})
+                         :events {"2014-02-25 12:00 Lunch" event-1}})
 
 (def expected-session-2 {:foo 4711
-                         :events {"2014-02-25 Lunch" event-1
-                                  "2014-02-25 Dinner" event-2}})
+                         :events {"2014-02-25 12:00 Lunch" event-1
+                                  "2014-02-25 18:00 Dinner" event-2}})
 
 (fact "We can store an event in the session"
       (:session (events/store existing-session

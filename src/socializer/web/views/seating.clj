@@ -14,4 +14,3 @@
                             :title "Seating Plan"
                             :active-nav "plan"
                             :content (plan-snippet)})))
-

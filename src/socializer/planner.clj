@@ -1,17 +1,17 @@
 (ns socializer.planner)
 
+(defn room-to-table-chair-map
+  [[table-name table]]
+  (map #(hash-map :table-name %1 :chair %2)
+       (repeat table-name)
+       (range (:nr-chairs table))))
+
 (defn linear-table-placement
   [participants tables]
   (let [sorted-participants (sort participants)
         person-name-maps (map #(hash-map :person-name %)
                               sorted-participants)
-        room-to-map (fn [[table-name table]]
-                      (map #(hash-map :table-name %1 :chair %2)
-                           (repeat table-name)
-                           (range (:nr-chairs table))))
-        table-chair-maps (apply concat (map room-to-map tables))]
-    (println person-name-maps)
-    (println table-chair-maps)
+        table-chair-maps (apply concat (map room-to-table-chair-map tables))]
     (vec (map merge
               person-name-maps
               table-chair-maps))))

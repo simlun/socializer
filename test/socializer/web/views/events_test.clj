@@ -34,8 +34,10 @@
    :tables "A rectangular 6\nB rectangular 4\nC circular 5"
    :people "Alice\n \nBob\nCathy\n\nDave\nErin\nFred\nGretl\nHarald\nIrene\nJacob\nKaren\nLinus\nMatilda\nNiel\nOlga"})
 
-(def participants #{"Alice" "Bob" "Cathy" "Dave" "Erin" "Fred" "Gretl" "Harald"
-                    "Irene" "Jacob" "Karen" "Linus" "Matilda" "Niel" "Olga"})
+(def participants #{"Alice" "Bob" "Cathy" "Dave" "Erin"
+                    "Fred" "Gretl" "Harald" "Irene"
+                    "Jacob" "Karen" "Linus" "Matilda"
+                    "Niel" "Olga"})
 
 (def event-1 {:event-name "Lunch"
               :date "2014-02-25"

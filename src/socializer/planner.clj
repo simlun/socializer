@@ -26,4 +26,6 @@
 
 (defn linear-plan
   [events]
-  (map linear-plan-1 events))
+  (map linear-plan-1 (->> events
+                          (sort-by :time)
+                          (sort-by :date))))

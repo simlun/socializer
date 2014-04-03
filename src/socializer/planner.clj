@@ -1,6 +1,6 @@
 (ns socializer.planner)
 
-(defn room-to-table-chair-map
+(defn to-table-chair-map
   [[table-name table]]
   (map #(hash-map :table-name %1 :chair %2)
        (repeat table-name)
@@ -11,7 +11,7 @@
   (let [sorted-participants (sort participants)
         person-name-maps (map #(hash-map :person-name %)
                               sorted-participants)
-        table-chair-maps (apply concat (map room-to-table-chair-map tables))]
+        table-chair-maps (apply concat (map to-table-chair-map tables))]
     (vec (map merge
               person-name-maps
               table-chair-maps))))

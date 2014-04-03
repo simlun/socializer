@@ -59,6 +59,11 @@
        {session :session}
        (data/form session))
 
+  (POST "/data"
+        {session :session
+         params :params}
+        (data/store session params))
+
   (compojure.route/resources "/")
   (compojure.route/not-found "Page not found"))
 

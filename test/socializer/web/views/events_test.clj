@@ -32,24 +32,29 @@
    :hour "18"
    :minute "00"
    :tables "A rectangular 6\nB rectangular 4\nC circular 5"
-   :people "Alice\n \nBob\nCathy\n\nDave\nErin\nFred\nGretl\nHarald\nIrene\nJacob\nKaren\nLinus\nMatilda\nNiel\nOlga"})
+   :people "Alice\n \nBob\nCathy\n\nDave\nErin\nFred\nGretl\nHarald\nIrene\nJacob\nKaren\nLinus\nMatilda\nNiel"})
 
-(def participants #{"Alice" "Bob" "Cathy" "Dave" "Erin"
+(def participants-1 #{"Alice" "Bob" "Cathy" "Dave" "Erin"
                     "Fred" "Gretl" "Harald" "Irene"
                     "Jacob" "Karen" "Linus" "Matilda"
                     "Niel" "Olga"})
+
+(def participants-2 #{"Alice" "Bob" "Cathy" "Dave" "Erin"
+                    "Fred" "Gretl" "Harald" "Irene"
+                    "Jacob" "Karen" "Linus" "Matilda"
+                    "Niel"}) ; Without Olga!
 
 (def event-1 {:event-name "Lunch"
               :date "2014-02-25"
               :time "12:00"
               :tables room
-              :participants participants})
+              :participants participants-1})
 
 (def event-2 {:event-name "Dinner"
               :date "2014-02-25"
               :time "18:00"
               :tables room
-              :participants participants})
+              :participants participants-2})
 
 (def existing-session {:foo 4711})
 

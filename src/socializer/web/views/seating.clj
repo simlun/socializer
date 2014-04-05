@@ -58,11 +58,19 @@
                              :.table-placement] (html/clone-for [placement (:placements event-plan)]
                                                                 [:.person-name] (html/content (:person-name placement))
                                                                 [:.table-name] (html/content (:table-name placement))
-                                                                [:.chair] (html/content (str (:chair placement))))))
+                                                                [:.chair] (html/content (str (:chair placement))))
+
+                            [:.progress-bar] (html/set-attr :style (str "width:"
+                                                                        (:percentage (:distance event-plan))
+                                                                        "%;"))
+                            [:.progress-bar :span] (html/content (str (:current (:distance event-plan))
+                                                                      " of "
+                                                                      (:max (:distance event-plan))))))
 
 (defn plan
   [session]
   (response (template/base {:session session
                             :title "Seating Plan"
                             :active-nav "plan"
-                            :content (plan-snippet (planner/linear-plan (vals (:events session))))})))
+                            :content (plan-snippet (planner/linear-plan (vals (:events session))
+                                                                        (:people session)))})))

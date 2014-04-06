@@ -18,7 +18,6 @@
         shape (last name-shape)
         name-words (drop-last name-shape)
         table-name (clojure.string/join " " name-words)]
-    ; TODO Validate shape keyword
     {table-name {:shape (keyword shape)
                  :nr-chairs (Integer. nr-chairs)}}))
 
@@ -50,13 +49,21 @@
   [event]
   [:#event-name] (html/set-attr :value (:event-name event))
   [:#date] (html/set-attr :value (:date event))
-  [:#hour [:option (html/attr= :value (hour (get event :time "12")))]] (html/set-attr :selected "selected")
-  [:#minute [:option (html/attr= :value (minute (get event :time "00")))]] (html/set-attr :selected "selected")
-  [:#placement-algorithm [:option (html/attr= :value (name (get event :placement-algorithm :random)))]] (html/set-attr :selected "selected")
-  [:#distance-algorithm [:option (html/attr= :value (name (get event :distance-algorithm :chair-agnostic)))]] (html/set-attr :selected "selected")
+
+  [:#hour [:option (html/attr= :value (hour (get event :time "12")))]]
+  (html/set-attr :selected "selected")
+
+  [:#minute [:option (html/attr= :value (minute (get event :time "00")))]]
+  (html/set-attr :selected "selected")
+
+  [:#placement-algorithm [:option (html/attr= :value (name (get event :placement-algorithm :random)))]]
+  (html/set-attr :selected "selected")
+
+  [:#distance-algorithm [:option (html/attr= :value (name (get event :distance-algorithm :chair-agnostic)))]]
+  (html/set-attr :selected "selected")
+
   [:#tables] (html/content (unparse-tables (:tables event)))
-  [:#people] (html/content (clojure.string/join "\n"
-                                                (sort (:participants event)))))
+  [:#people] (html/content (clojure.string/join "\n" (sort (:participants event)))))
 
 (defn form
   ([session]

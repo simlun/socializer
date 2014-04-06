@@ -41,11 +41,19 @@
                                         (:nr-chairs (get tables %)))
                                   (keys tables)))))
 
+(defn- split-time [time-str] (clojure.string/split time-str #":"))
+(defn- hour   [time-str] (let [[hh mm] (split-time time-str)] hh))
+(defn- minute [time-str] (let [[hh mm] (split-time time-str)] mm))
+
 (html/defsnippet form-snippet "templates/event-form.html"
   [:#content]
   [event]
   [:#event-name] (html/set-attr :value (:event-name event))
   [:#date] (html/set-attr :value (:date event))
+  [:#hour [:option (html/attr= :value (hour (get event :time "12")))]] (html/set-attr :selected "selected")
+  [:#minute [:option (html/attr= :value (minute (get event :time "00")))]] (html/set-attr :selected "selected")
+  [:#placement-algorithm [:option (html/attr= :value (name (get event :placement-algorithm :random)))]] (html/set-attr :selected "selected")
+  [:#distance-algorithm [:option (html/attr= :value (name (get event :distance-algorithm :chair-agnostic)))]] (html/set-attr :selected "selected")
   [:#tables] (html/content (unparse-tables (:tables event)))
   [:#people] (html/content (clojure.string/join "\n"
                                                 (sort (:participants event)))))

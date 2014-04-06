@@ -2,6 +2,8 @@
   (:use [clojure.math.combinatorics :only [cartesian-product]])
   (:require [clojure.math.numeric-tower :as math]))
 
+; TODO Refactor into table.clj and distance.clj
+
 (defn to-table-chair-map
   [[table-name table]]
   (map #(hash-map :table-name %1 :table-shape %2 :chair %3)

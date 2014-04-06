@@ -3,12 +3,14 @@
   (:require [socializer.web.views.events :as events]))
 
 (def tables-str "\nA rect 6\n\nC circ 5\nB rect 4\n\n")
+
 (def room {"A" {:shape :rect
                 :nr-chairs 6}
            "B" {:shape :rect
                 :nr-chairs 4}
            "C" {:shape :circ
                 :nr-chairs 5}})
+
 (def unparsed-tables-str "A rect 6\nB rect 4\nC circ 5")
 
 (fact "A multi line table spec can be parsed to a data structure"

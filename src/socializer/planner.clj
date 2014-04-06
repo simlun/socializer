@@ -16,9 +16,11 @@
 (defn linear-table-placement
   [participants tables]
   (let [sorted-participants (sort participants)
+        sorted-tables (into (sorted-map) tables)
         person-name-maps (map #(hash-map :person-name %)
                               sorted-participants)
-        table-chair-maps (apply concat (map to-table-chair-map tables))]
+        table-chair-maps (apply concat (map to-table-chair-map
+                                            sorted-tables))]
     (vec (map merge
               person-name-maps
               table-chair-maps))))

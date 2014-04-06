@@ -86,6 +86,27 @@
           </div>
         </div>
         <div class="row">
+          <div class="col-sm-3 col-sm-offset-3">
+            <div class="form-group">
+              <label for="placement-algorithm">Placement Algorithm</label>
+              <select class="form-control" name="placement-algorithm" id="placement-algorithm">
+                <option value="sorted">Sorted</option>
+                <option value="random">Random</option>
+                <option value="greedy">Greedy</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="distance-algorithm">Distance Algorithm</label>
+              <select class="form-control" name="distance-algorithm" id="distance-algorithm">
+                <option value="chair-agnostic">Chair Agnostic</option>
+                <option value="chair-conscious">Chair Conscious</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
           <div class="col-sm-6 col-sm-offset-3">
             <div class="form-group">
               <label for="tables">Tables</label>

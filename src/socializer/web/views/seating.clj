@@ -35,5 +35,5 @@
   (response (template/base {:session session
                             :title "Seating Plan"
                             :active-nav "plan"
-                            :content (plan-snippet (planner/linear-plan (vals (:events session))
-                                                                        (:people session)))})))
+                            :content (plan-snippet (planner/plan (vals (:events session))
+                                                                 (:people session)))})))

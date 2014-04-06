@@ -4,7 +4,7 @@
             [socializer.planner :as planner]))
 
 (fact "Planning no events returns no seating plans"
-      (planner/linear-plan [] #{}) => [])
+      (planner/plan [] #{}) => [])
 
 (def people #{"Alice" "Bob" "Cathy" "Dave" "Erin"
               "Fred" "Gretl" "Harald" "Irene"
@@ -56,7 +56,7 @@
 (fact "The initial distance matrix maps pairs of people to the default distance 1000"
       (planner/create-matrix people) => expected-initial-distance-matrix)
 
-(def linear-placements-1
+(def sorted-placements-1
   [{:person-name "Alice" :table-name "A" :table-shape :rect :chair 0}
    {:person-name "Bob" :table-name "A" :table-shape :rect :chair 1}
    {:person-name "Cathy" :table-name "A" :table-shape :rect :chair 2}
@@ -73,7 +73,7 @@
    {:person-name "Niel" :table-name "C" :table-shape :circ :chair 3}
    {:person-name "Olga" :table-name "C" :table-shape :circ :chair 4}])
 
-(def linear-placements-2
+(def sorted-placements-2
   [{:person-name "Alice" :table-name "A" :table-shape :rect :chair 0}
    {:person-name "Bob" :table-name "A" :table-shape :rect :chair 1}
    {:person-name "Cathy" :table-name "A" :table-shape :rect :chair 2}
@@ -87,8 +87,7 @@
    {:person-name "Karen" :table-name "C" :table-shape :circ :chair 0}
    {:person-name "Linus" :table-name "C" :table-shape :circ :chair 1}
    {:person-name "Matilda" :table-name "C" :table-shape :circ :chair 2}
-   {:person-name "Niel" :table-name "C" :table-shape :circ :chair 3}
-   ])
+   {:person-name "Niel" :table-name "C" :table-shape :circ :chair 3}])
 
 (def chair-agnostic-table-distance-matrix-B
   {#{"Harald" "Gretl"} 0
@@ -100,37 +99,37 @@
 
 (fact "Sitting at the same table sets their social distance to 0"
       (planner/judge-table ["B" (get events-test/room "B")]
-                           linear-placements-1)
+                           sorted-placements-1)
       => chair-agnostic-table-distance-matrix-B)
 
-(def linearly-planned-event-1
+(def sorted-planned-event-1
   {:event {:date "2014-02-25"
            :time "12:00"
            :name "Lunch"}
    :distance {:max 120000
               :current 89000
               :percentage 74}
-   :placements linear-placements-1})
+   :placements sorted-placements-1})
 
-(def linearly-planned-event-2
+(def sorted-planned-event-2
   {:event {:date "2014-02-25"
            :time "18:00"
            :name "Dinner"}
    :distance {:max 120000
               :current 89000
               :percentage 74}
-   :placements linear-placements-2})
+   :placements sorted-placements-2})
 
-(fact "Linear table placement places people in alphabetical order"
-      (planner/linear-table-placement events-test/participants-1
+(fact "Sorted table placement places people in alphabetical order"
+      (planner/sorted-table-placement events-test/participants-1
                                       events-test/room)
-      => linear-placements-1)
+      => sorted-placements-1)
 
-(fact "Planning one linear event returns a linear seating plan"
-      (planner/linear-plan [events-test/event-1] people)
-      => [linearly-planned-event-1])
+(fact "Planning one sorted event returns a sorted seating plan"
+      (planner/plan [events-test/event-1] people)
+      => [sorted-planned-event-1])
 
-(fact "Planning two linear events returns another linear seating plan"
-      (planner/linear-plan [events-test/event-1 events-test/event-2]
+(fact "Planning two sorted events returns another sorted seating plan"
+      (planner/plan [events-test/event-1 events-test/event-2]
                            people)
-      => [linearly-planned-event-1 linearly-planned-event-2])
+      => [sorted-planned-event-1 sorted-planned-event-2])

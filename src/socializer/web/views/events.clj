@@ -70,6 +70,8 @@
         event {:event-name (:event-name params)
                :date (:date params)
                :time time-str
+               :placement-algorithm (keyword (:placement-algorithm params))
+               :distance-algorithm (keyword (:distance-algorithm params))
                :tables (parse-tables (:tables params))
                :participants (parse-people params)}]
     (-> (redirect-after-post "/events")

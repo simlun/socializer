@@ -14,7 +14,7 @@
 (def unparsed-tables-str "A rect 6\nB rect 4\nC circ 5")
 
 (fact "A multi line table spec can be parsed to a data structure"
-  (events/parse-tables tables-str) => room)
+      (events/parse-tables tables-str) => room)
 
 (fact "Table data can be converted back to string representation"
       (events/unparse-tables room) => unparsed-tables-str)
@@ -24,6 +24,8 @@
    :date "2014-02-25"
    :hour "12"
    :minute "00"
+   :placement-algorithm "sorted"
+   :distance-algorithm "chair-agnostic"
    :tables tables-str
    :people "Alice\nAlice\nBob \nCathy\n \nDave\nErin\nFred\nGretl\nHarald\nIrene\nJacob\nKaren\nLinus\nMatilda\nNiel\nOlga"})
 
@@ -32,28 +34,34 @@
    :date "2014-02-25"
    :hour "18"
    :minute "00"
+   :placement-algorithm "sorted"
+   :distance-algorithm "chair-agnostic"
    :tables "A rect 6\nB rect 4\nC circ 5"
    :people "Alice\n \nBob\nCathy\n\nDave\nErin\nFred\nGretl\nHarald\nIrene\nJacob\nKaren\nLinus\nMatilda\nNiel"})
 
 (def participants-1 #{"Alice" "Bob" "Cathy" "Dave" "Erin"
-                    "Fred" "Gretl" "Harald" "Irene"
-                    "Jacob" "Karen" "Linus" "Matilda"
-                    "Niel" "Olga"})
+                      "Fred" "Gretl" "Harald" "Irene"
+                      "Jacob" "Karen" "Linus" "Matilda"
+                      "Niel" "Olga"})
 
 (def participants-2 #{"Alice" "Bob" "Cathy" "Dave" "Erin"
-                    "Fred" "Gretl" "Harald" "Irene"
-                    "Jacob" "Karen" "Linus" "Matilda"
-                    "Niel"}) ; Without Olga!
+                      "Fred" "Gretl" "Harald" "Irene"
+                      "Jacob" "Karen" "Linus" "Matilda"
+                      "Niel"}) ; Without Olga!
 
 (def event-1 {:event-name "Lunch"
               :date "2014-02-25"
               :time "12:00"
+              :placement-algorithm :sorted
+              :distance-algorithm :chair-agnostic
               :tables room
               :participants participants-1})
 
 (def event-2 {:event-name "Dinner"
               :date "2014-02-25"
               :time "18:00"
+              :placement-algorithm :sorted
+              :distance-algorithm :chair-agnostic
               :tables room
               :participants participants-2})
 

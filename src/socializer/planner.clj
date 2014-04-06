@@ -2,10 +2,6 @@
   (:use [clojure.math.combinatorics :only [cartesian-product]])
   (:require [clojure.math.numeric-tower :as math]))
 
-(defn- percentage
-  [part whole]
-  (int (* 100 (float (/ part whole)))))
-
 (defn to-table-chair-map
   [[table-name table]]
   (map #(hash-map :table-name %1 :table-shape %2 :chair %3)
@@ -13,9 +9,9 @@
        (repeat (:shape table))
        (range (:nr-chairs table))))
 
-(defn linear-table-placement
-  [participants tables]
-  (let [sorted-participants (sort participants)
+(defn table-placement
+  [participants tables order-fn]
+  (let [sorted-participants (order-fn participants)
         sorted-tables (into (sorted-map) tables)
         person-name-maps (map #(hash-map :person-name %)
                               sorted-participants)
@@ -24,6 +20,18 @@
     (vec (map merge
               person-name-maps
               table-chair-maps))))
+
+(defn sorted-table-placement
+  [participants tables]
+  (table-placement participants tables sort))
+
+(defn random-table-placement
+  [participants tables]
+  (table-placement participants tables shuffle))
+
+(def placement-functions
+  {:sorted sorted-table-placement
+   :random random-table-placement})
 
 (defn create-matrix
   ([people]
@@ -34,10 +42,6 @@
              (set (map hash-set people)))
            (repeat value))))
 
-(defn- matrix-sum
-  [matrix]
-  (reduce + (vals matrix)))
-
 (defn judge-table
   [[table-name table] placements]
   (let [table-placements (filter #(= (:table-name %) table-name) placements)
@@ -47,6 +51,17 @@
 (defn judge-room
   [tables placements]
   (apply merge (map #(judge-table % placements) tables)))
+
+(def distance-judge-functions
+  {:chair-agnostic judge-room})
+
+(defn- matrix-sum
+  [matrix]
+  (reduce + (vals matrix)))
+
+(defn- percentage
+  [part whole]
+  (int (* 100 (float (/ part whole)))))
 
 (defn create-planned-event
   [event
@@ -69,7 +84,7 @@
        (sort-by :time)
        (sort-by :date)))
 
-(defn linear-plan
+(defn plan
   [events people]
   (let [people-distance-matrix (create-matrix people)
         max-distance (matrix-sum people-distance-matrix)]
@@ -79,10 +94,12 @@
       (if (empty? unplanned-events)
         planned-events
         (let [event (first unplanned-events)
-              placements (linear-table-placement (:participants event)
-                                                 (:tables event))
-              placement-distance-matrix (judge-room (:tables event)
-                                                    placements)
+              placement-fn ((:placement-algorithm event) placement-functions)
+              placements (placement-fn (:participants event)
+                                       (:tables event))
+              distance-judge-fn ((:distance-algorithm event) distance-judge-functions)
+              placement-distance-matrix (distance-judge-fn (:tables event)
+                                                           placements)
               current-distance-matrix (merge previous-distance-matrix
                                              placement-distance-matrix)
               planned-event (create-planned-event event

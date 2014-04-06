@@ -8,8 +8,9 @@
 
 (defn to-table-chair-map
   [[table-name table]]
-  (map #(hash-map :table-name %1 :chair %2)
+  (map #(hash-map :table-name %1 :table-shape %2 :chair %3)
        (repeat table-name)
+       (repeat (:shape table))
        (range (:nr-chairs table))))
 
 (defn linear-table-placement
@@ -22,41 +23,70 @@
               person-name-maps
               table-chair-maps))))
 
-(defn linear-plan-1
-  [event max-distance]
-  (let [placements (linear-table-placement (:participants event)
-                                           (:tables event))
-        previous-distance 225000 ; TODO
-        distance-delta 102000 ; TODO
-        current-distance (- previous-distance distance-delta)
+(defn create-matrix
+  ([people]
+   (create-matrix people 1000))
+  ([people value]
+   (zipmap (clojure.set/difference
+             (set (map set (cartesian-product people people)))
+             (set (map hash-set people)))
+           (repeat value))))
+
+(defn- matrix-sum
+  [matrix]
+  (reduce + (vals matrix)))
+
+(defn judge-table
+  [[table-name table] placements]
+  (let [table-placements (filter #(= (:table-name %) table-name) placements)
+        neighbours (set (map :person-name table-placements))]
+    (create-matrix neighbours 0)))
+
+(defn judge-room
+  [tables placements]
+  (apply merge (map #(judge-table % placements) tables)))
+
+(defn create-planned-event
+  [event
+   placements
+   current-distance-matrix
+   max-distance]
+  (let [current-distance (matrix-sum current-distance-matrix)
         distance-percentage (percentage current-distance max-distance)]
     {:event {:date (:date event)
              :time (:time event)
              :name (:event-name event)}
      :distance {:max max-distance
-                :current 123000 ; TODO
+                :current current-distance
                 :percentage distance-percentage}
      :placements placements}))
 
-
-(defn create-matrix
-  [people]
-  (zipmap (clojure.set/difference
-            (set (map set (cartesian-product people people)))
-            (set (map hash-set people)))
-          (repeat 1000)))
+(defn- sorted-events
+  [events]
+  (->> events
+       (sort-by :time)
+       (sort-by :date)))
 
 (defn linear-plan
   [events people]
-  (let [sorted-events (->> events
-                           (sort-by :time)
-                           (sort-by :date))
-        max-distance (* 1000 (math/expt (count people)
-                                        2))]
+  (let [people-distance-matrix (create-matrix people)
+        max-distance (matrix-sum people-distance-matrix)]
     (loop [planned-events []
-           unplanned-events sorted-events]
+           unplanned-events (sorted-events events)
+           previous-distance-matrix people-distance-matrix]
       (if (empty? unplanned-events)
         planned-events
-        (recur (conj planned-events
-                     (linear-plan-1 (first unplanned-events) max-distance))
-               (rest unplanned-events))))))
+        (let [event (first unplanned-events)
+              placements (linear-table-placement (:participants event)
+                                                 (:tables event))
+              placement-distance-matrix (judge-room (:tables event)
+                                                    placements)
+              current-distance-matrix (merge previous-distance-matrix
+                                             placement-distance-matrix)
+              planned-event (create-planned-event event
+                                                  placements
+                                                  current-distance-matrix
+                                                  max-distance)]
+          (recur (conj planned-events planned-event)
+                 (rest unplanned-events)
+                 current-distance-matrix))))))

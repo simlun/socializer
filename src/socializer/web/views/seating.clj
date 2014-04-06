@@ -4,47 +4,6 @@
             [socializer.planner :as planner]
             [socializer.web.views.template :as template]))
 
-(def plan-stub
-  [{:event {:date "2014-02-25"
-            :time "12:00"
-            :name "Lunch"}
-    :placements [{:person-name "Dave"
-                  :table-name "A"
-                  :chair 0}
-                 {:person-name "Charlotte"
-                  :table-name "B"
-                  :chair 2}
-                 {:person-name "Bob"
-                  :table-name "A"
-                  :chair 1}
-                 {:person-name "Alice"
-                  :table-name "B"
-                  :chair 0}
-                 {:person-name "Erin"
-                  :table-name "A"
-                  :chair 1}
-                 ]}
-   {:event {:date "2014-02-25"
-            :time "18:00"
-            :name "Dinner"}
-    :placements [{:person-name "Bob"
-                  :table-name "B"
-                  :chair 2}
-                 {:person-name "Alice"
-                  :table-name "A"
-                  :chair 0}
-                 {:person-name "Erin"
-                  :table-name "A"
-                  :chair 1}
-                 {:person-name "Dave"
-                  :table-name "B"
-                  :chair 1}
-                 {:person-name "Charlotte"
-                  :table-name "A"
-                  :chair 0}
-                 ]}
-   ])
-
 (html/defsnippet plan-snippet "templates/seating-plan.html"
   [:#content]
   [event-plans]
@@ -60,12 +19,16 @@
                                                                 [:.table-name] (html/content (:table-name placement))
                                                                 [:.chair] (html/content (str (:chair placement))))
 
-                            [:.progress-bar] (html/set-attr :style (str "width:"
-                                                                        (:percentage (:distance event-plan))
-                                                                        "%;"))
-                            [:.progress-bar :span] (html/content (str (:current (:distance event-plan))
-                                                                      " of "
-                                                                      (:max (:distance event-plan))))))
+                            [:.distance-left.progress-bar] (html/set-attr :style (str "width:"
+                                                                                           (:percentage (:distance event-plan))
+                                                                                           "%;"))
+                            [:.distance-left :span] (html/content (str (:percentage (:distance event-plan)) "%"))
+                            [:.distance-reduced.progress-bar] (html/set-attr :style (str "width:"
+                                                                                           (- 100 (:percentage (:distance event-plan)))
+                                                                                           "%;"))
+                            [:.distance-reduced :span] (html/content (str (- 100 (:percentage (:distance event-plan))) "%"))
+
+                            ))
 
 (defn plan
   [session]

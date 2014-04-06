@@ -2,21 +2,20 @@
   (:use midje.sweet)
   (:require [socializer.web.views.events :as events]))
 
-(def tables-str "\nA rectangular 6\n\nC circular 5\nB rectangular 4\n\n")
-(def room {"A" {:shape :rectangular
+(def tables-str "\nA rect 6\n\nC circ 5\nB rect 4\n\n")
+(def room {"A" {:shape :rect
                 :nr-chairs 6}
-           "B" {:shape :rectangular
+           "B" {:shape :rect
                 :nr-chairs 4}
-           "C" {:shape :circular
+           "C" {:shape :circ
                 :nr-chairs 5}})
-(def unparsed-tables-str "A rectangular 6\nB rectangular 4\nC circular 5")
+(def unparsed-tables-str "A rect 6\nB rect 4\nC circ 5")
 
 (fact "A multi line table spec can be parsed to a data structure"
   (events/parse-tables tables-str) => room)
 
 (fact "Table data can be converted back to string representation"
       (events/unparse-tables room) => unparsed-tables-str)
-
 
 (def request-params-event-1
   {:event-name "Lunch"
@@ -31,7 +30,7 @@
    :date "2014-02-25"
    :hour "18"
    :minute "00"
-   :tables "A rectangular 6\nB rectangular 4\nC circular 5"
+   :tables "A rect 6\nB rect 4\nC circ 5"
    :people "Alice\n \nBob\nCathy\n\nDave\nErin\nFred\nGretl\nHarald\nIrene\nJacob\nKaren\nLinus\nMatilda\nNiel"})
 
 (def participants-1 #{"Alice" "Bob" "Cathy" "Dave" "Erin"

@@ -4,6 +4,17 @@
             [socializer.planner :as planner]
             [socializer.web.views.template :as template]))
 
+(defn set-progress-bar-width
+  [percentage]
+  (html/set-attr :style (str "width:"
+                             percentage
+                             "%;")))
+
+(defn set-progress-bar-label
+  [percentage]
+  (html/content (str percentage "%")))
+
+
 (html/defsnippet plan-snippet "templates/seating-plan.html"
   [:#content]
   [event-plans]
@@ -19,14 +30,12 @@
                                                                 [:.table-name] (html/content (:table-name placement))
                                                                 [:.chair] (html/content (str (:chair placement))))
 
-                            [:.distance-left.progress-bar] (html/set-attr :style (str "width:"
-                                                                                           (:percentage (:distance event-plan))
-                                                                                           "%;"))
-                            [:.distance-left :span] (html/content (str (:percentage (:distance event-plan)) "%"))
-                            [:.distance-reduced.progress-bar] (html/set-attr :style (str "width:"
-                                                                                           (- 100 (:percentage (:distance event-plan)))
-                                                                                           "%;"))
-                            [:.distance-reduced :span] (html/content (str (- 100 (:percentage (:distance event-plan))) "%"))
+                            [:.distance-to-reduce.progress-bar] (set-progress-bar-width (-> event-plan :distance :percentage))
+                            [:.distance-to-reduce :span] (set-progress-bar-label (-> event-plan :distance :percentage))
+                            [:.distance-reduced.progress-bar] (set-progress-bar-width (- 100 (-> event-plan :distance :percentage)))
+                            [:.distance-reduced :span] (set-progress-bar-label (- 100 (-> event-plan :distance :percentage)))
+
+;TODO Satisfied groupings progress bars
 
                             ))
 

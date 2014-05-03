@@ -7,4 +7,4 @@
   [& args]
   (let [port (Integer. (first args))]
     (println "Starting Socializer web server on port" port "...")
-    (httpkit/run-server routes/handler {:port port})))
+    (httpkit/run-server routes/prod-handler {:port port})))

@@ -6,7 +6,7 @@
 
 (tabular
   (fact "Status codes are as expected"
-      (sut/handler (request :get ?url))
+      (sut/base-handler (request :get ?url))
       => (contains {:status ?status}))
   ?url       ?status
   "/notfoundz"    404

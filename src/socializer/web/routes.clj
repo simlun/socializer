@@ -1,5 +1,11 @@
 (ns socializer.web.routes
-  (:use compojure.core)
+  (:use compojure.core
+        [ring.middleware params
+         keyword-params
+         nested-params
+         multipart-params
+         cookies
+         session])
   (:require compojure.handler
             compojure.route
             [socializer.web.views.index :as index]
@@ -67,5 +73,12 @@
   (compojure.route/resources "/")
   (compojure.route/not-found "Page not found"))
 
-(def handler (-> my-routes
-                 compojure.handler/site))
+(def base-handler (-> my-routes
+                      wrap-keyword-params
+                      wrap-nested-params
+                      wrap-params
+                      wrap-multipart-params
+                      wrap-cookies))
+
+(def prod-handler (-> base-handler
+                      wrap-session))

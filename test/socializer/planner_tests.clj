@@ -13,37 +13,37 @@
               "Niel" "Olga" "Peter"}) ; Peter never gets seated
 
 (def sorted-placements-1
-  [{:person-name "Alice" :table-name "A" :table-shape :rect :chair 0}
-   {:person-name "Bob" :table-name "A" :table-shape :rect :chair 1}
-   {:person-name "Cathy" :table-name "A" :table-shape :rect :chair 2}
-   {:person-name "Dave" :table-name "A" :table-shape :rect :chair 3}
-   {:person-name "Erin" :table-name "A" :table-shape :rect :chair 4}
-   {:person-name "Fred" :table-name "A" :table-shape :rect :chair 5}
-   {:person-name "Gretl" :table-name "B" :table-shape :rect :chair 0}
-   {:person-name "Harald" :table-name "B" :table-shape :rect :chair 1}
-   {:person-name "Irene" :table-name "B" :table-shape :rect :chair 2}
-   {:person-name "Jacob" :table-name "B" :table-shape :rect :chair 3}
-   {:person-name "Karen" :table-name "C" :table-shape :circ :chair 0}
-   {:person-name "Linus" :table-name "C" :table-shape :circ :chair 1}
-   {:person-name "Matilda" :table-name "C" :table-shape :circ :chair 2}
-   {:person-name "Niel" :table-name "C" :table-shape :circ :chair 3}
-   {:person-name "Olga" :table-name "C" :table-shape :circ :chair 4}])
+  [{:person-name "Alice" :table-name "A" :chair 0}
+   {:person-name "Bob" :table-name "A" :chair 1}
+   {:person-name "Cathy" :table-name "A" :chair 2}
+   {:person-name "Dave" :table-name "A" :chair 3}
+   {:person-name "Erin" :table-name "A" :chair 4}
+   {:person-name "Fred" :table-name "A" :chair 5}
+   {:person-name "Gretl" :table-name "B" :chair 0}
+   {:person-name "Harald" :table-name "B" :chair 1}
+   {:person-name "Irene" :table-name "B" :chair 2}
+   {:person-name "Jacob" :table-name "B" :chair 3}
+   {:person-name "Karen" :table-name "C" :chair 0}
+   {:person-name "Linus" :table-name "C" :chair 1}
+   {:person-name "Matilda" :table-name "C" :chair 2}
+   {:person-name "Niel" :table-name "C" :chair 3}
+   {:person-name "Olga" :table-name "C" :chair 4}])
 
 (def sorted-placements-2
-  [{:person-name "Alice" :table-name "A" :table-shape :rect :chair 0}
-   {:person-name "Bob" :table-name "A" :table-shape :rect :chair 1}
-   {:person-name "Cathy" :table-name "A" :table-shape :rect :chair 2}
-   {:person-name "Dave" :table-name "A" :table-shape :rect :chair 3}
-   {:person-name "Erin" :table-name "A" :table-shape :rect :chair 4}
-   {:person-name "Fred" :table-name "A" :table-shape :rect :chair 5}
-   {:person-name "Gretl" :table-name "B" :table-shape :rect :chair 0}
-   {:person-name "Harald" :table-name "B" :table-shape :rect :chair 1}
-   {:person-name "Irene" :table-name "B" :table-shape :rect :chair 2}
-   {:person-name "Jacob" :table-name "B" :table-shape :rect :chair 3}
-   {:person-name "Karen" :table-name "C" :table-shape :circ :chair 0}
-   {:person-name "Linus" :table-name "C" :table-shape :circ :chair 1}
-   {:person-name "Matilda" :table-name "C" :table-shape :circ :chair 2}
-   {:person-name "Niel" :table-name "C" :table-shape :circ :chair 3}])
+  [{:person-name "Alice" :table-name "A" :chair 0}
+   {:person-name "Bob" :table-name "A" :chair 1}
+   {:person-name "Cathy" :table-name "A" :chair 2}
+   {:person-name "Dave" :table-name "A" :chair 3}
+   {:person-name "Erin" :table-name "A" :chair 4}
+   {:person-name "Fred" :table-name "A" :chair 5}
+   {:person-name "Gretl" :table-name "B" :chair 0}
+   {:person-name "Harald" :table-name "B" :chair 1}
+   {:person-name "Irene" :table-name "B" :chair 2}
+   {:person-name "Jacob" :table-name "B" :chair 3}
+   {:person-name "Karen" :table-name "C" :chair 0}
+   {:person-name "Linus" :table-name "C" :chair 1}
+   {:person-name "Matilda" :table-name "C" :chair 2}
+   {:person-name "Niel" :table-name "C" :chair 3}])
 
 (def sorted-planned-event-1
   {:event {:date "2014-02-25"

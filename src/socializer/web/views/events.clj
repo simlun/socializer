@@ -12,14 +12,11 @@
 
 (defn- parse-table-line
   [line]
-  (let [name-shape-nr (split-words line)
-        nr-chairs (last name-shape-nr)
-        name-shape (drop-last name-shape-nr)
-        shape (last name-shape)
-        name-words (drop-last name-shape)
+  (let [name-nr (split-words line)
+        nr (last name-nr)
+        name-words (drop-last name-nr)
         table-name (clojure.string/join " " name-words)]
-    {table-name {:shape (keyword shape)
-                 :nr-chairs (Integer. nr-chairs)}}))
+    {table-name {:nr-chairs (Integer. nr)}}))
 
 (defn parse-tables
   [tables]
@@ -34,8 +31,6 @@
   [tables]
   (clojure.string/join "\n"
                        (sort (map #(str %
-                                        " "
-                                        (name (:shape (get tables %)))
                                         " "
                                         (:nr-chairs (get tables %)))
                                   (keys tables)))))

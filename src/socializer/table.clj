@@ -2,9 +2,8 @@
 
 (defn to-table-chair-map
   [[table-name table]]
-  (map #(hash-map :table-name %1 :table-shape %2 :chair %3)
+  (map #(hash-map :table-name %1 :chair %2)
        (repeat table-name)
-       (repeat (:shape table))
        (range (:nr-chairs table))))
 
 (defn table-placement

@@ -1,8 +1,7 @@
 (ns socializer.web.routes-test
   (:use midje.sweet
         ring.mock.request)
-  (:require [socializer.web.routes :as sut])
-  )
+  (:require [socializer.web.routes :as sut]))
 
 (tabular
   (fact "Status codes are as expected"

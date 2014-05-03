@@ -2,16 +2,13 @@
   (:use midje.sweet)
   (:require [socializer.web.views.events :as events]))
 
-(def tables-str "\nA rect 6\n\nC circ 5\nB rect 4\n\n")
+(def tables-str "\nA 6\n\nC 5\nB 4\n\n")
 
-(def room {"A" {:shape :rect
-                :nr-chairs 6}
-           "B" {:shape :rect
-                :nr-chairs 4}
-           "C" {:shape :circ
-                :nr-chairs 5}})
+(def room {"A" {:nr-chairs 6}
+           "B" {:nr-chairs 4}
+           "C" {:nr-chairs 5}})
 
-(def unparsed-tables-str "A rect 6\nB rect 4\nC circ 5")
+(def unparsed-tables-str "A 6\nB 4\nC 5")
 
 (fact "A multi line table spec can be parsed to a data structure"
       (events/parse-tables tables-str) => room)
@@ -36,7 +33,7 @@
    :minute "00"
    :placement-algorithm "sorted"
    :distance-algorithm "chair-agnostic"
-   :tables "A rect 6\nB rect 4\nC circ 5"
+   :tables "A 6\nB 4\nC 5"
    :people "Alice\n \nBob\nCathy\n\nDave\nErin\nFred\nGretl\nHarald\nIrene\nJacob\nKaren\nLinus\nMatilda\nNiel"})
 
 (def participants-1 #{"Alice" "Bob" "Cathy" "Dave" "Erin"

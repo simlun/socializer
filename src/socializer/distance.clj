@@ -1,5 +1,6 @@
 (ns socializer.distance
-  (:use [clojure.math.combinatorics :only [cartesian-product]]))
+  (:use clojure.set
+        [clojure.math.combinatorics :only [cartesian-product]]))
 
 (defn create-matrix
   ([people]

@@ -16,7 +16,7 @@
 
 (defn table-placement
   [event-plan]
-  (html/clone-for [placement (:placements event-plan)]
+  (html/clone-for [placement (sort-by :person-name (:placements event-plan))]
                   [:.person-name] (html/content (:person-name placement))
                   [:.table-name] (html/content (:table-name placement))
                   [:.chair] (html/content (str (:chair placement))))

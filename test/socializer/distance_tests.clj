@@ -71,3 +71,13 @@
       (distance/judge-table ["B" (get events-test/room "B")]
                             planner-tests/sorted-placements-1)
       => chair-agnostic-table-distance-matrix-B)
+
+(def some-distance-matrix
+  {#{"Bar" "Baz"} 750
+   #{"Foo" "Bar"} 1000
+   #{"Not in people set 1" "Not in people set 2"} 4711
+   #{"Foo" "Baz"} 500})
+
+(fact "people can be sorted by their max distance in a distance matrix"
+      (distance/people-sorted-by-distance #{"Bar" "Baz" "Foo"} some-distance-matrix)
+      => '("Foo" "Bar" "Baz"))

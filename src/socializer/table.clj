@@ -1,4 +1,5 @@
-(ns socializer.table)
+(ns socializer.table
+  (:require [socializer.distance :as distance]))
 
 (defn to-table-chair-map
   [[table-name table]]
@@ -19,13 +20,19 @@
               table-chair-maps))))
 
 (defn sorted-table-placement
-  [participants tables]
+  [participants tables _]
   (table-placement participants tables sort))
 
 (defn random-table-placement
-  [participants tables]
+  [participants tables _]
   (table-placement participants tables shuffle))
+
+(defn greedy-table-placement
+  [participants tables previous-distance-matrix]
+  (let [distance-sort (fn [people] (distance/people-sorted-by-distance people previous-distance-matrix))]
+    (table-placement participants tables distance-sort)))
 
 (def placement-functions
   {:sorted sorted-table-placement
-   :random random-table-placement})
+   :random random-table-placement
+   :greedy greedy-table-placement})

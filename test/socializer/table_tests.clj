@@ -7,5 +7,6 @@
 
 (fact "Sorted table placement places people in alphabetical order"
       (table/sorted-table-placement events-test/participants-1
-                                    events-test/room)
+                                    events-test/room
+                                    nil)
       => planner-tests/sorted-placements-1)

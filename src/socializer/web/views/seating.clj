@@ -14,13 +14,22 @@
   [percentage]
   (html/content (str percentage "%")))
 
-(defn table-placement
+(defn person-sorted-table-placement
   [event-plan]
   (html/clone-for [placement (sort-by :person-name (:placements event-plan))]
                   [:.person-name] (html/content (:person-name placement))
                   [:.table-name] (html/content (:table-name placement))
-                  [:.chair] (html/content (str (:chair placement))))
-  )
+                  [:.chair] (html/content (str (:chair placement)))))
+
+(defn table-sorted-table-placement
+  [event-plan]
+  (let [table-sorted-plan (sort-by :table-name (sort-by :chair (:placements event-plan)))
+        tables (distinct (map :table-name table-sorted-plan))]
+    (html/clone-for [table tables]
+                    [:.table-name] (html/content table)
+                    [:.table-group-row] (html/clone-for [placement (filter #(= (:table-name %) table) table-sorted-plan)]
+                                                        [:.person-name] (html/content (:person-name placement))
+                                                        [:.chair] (html/content (str (:chair placement)))))))
 
 (html/defsnippet plan-snippet "templates/seating-plan.html"
   [:#content]
@@ -31,7 +40,8 @@
                             [:.event-time] (html/content (:time (:event event-plan)))
                             [:.event-name] (html/content (:name (:event event-plan)))
 
-                            [:.person-sorted-table-placement :.table-placement] (table-placement event-plan)
+                            [:.person-sorted-table-placement :.table-placement] (person-sorted-table-placement event-plan)
+                            [:.table-grouped-table-placement] (table-sorted-table-placement event-plan)
 
                             [:.distance-to-reduce.progress-bar] (set-progress-bar-width (-> event-plan :distance :percentage))
                             [:.distance-to-reduce :span] (set-progress-bar-label (-> event-plan :distance :percentage))

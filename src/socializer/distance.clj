@@ -2,13 +2,17 @@
   (:use clojure.set
         [clojure.math.combinatorics :only [cartesian-product]]))
 
+(defn create-pairs
+  [things]
+  (seq (clojure.set/difference
+             (set (map set (cartesian-product things things)))
+             (set (map hash-set things)))))
+
 (defn create-matrix
   ([people]
    (create-matrix people 1000))
   ([people value]
-   (zipmap (clojure.set/difference
-             (set (map set (cartesian-product people people)))
-             (set (map hash-set people)))
+   (zipmap (create-pairs people)
            (repeat value))))
 
 (defn judge-table

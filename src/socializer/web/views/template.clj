@@ -25,4 +25,3 @@
                     [:.count] (html/content (str (count (:participants event)))))
 
   [:#content] (html/substitute (:content context)))
-

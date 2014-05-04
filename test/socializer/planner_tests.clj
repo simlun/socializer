@@ -5,7 +5,7 @@
             [socializer.planner :as planner]))
 
 (fact "Planning no events returns no seating plans"
-      (planner/plan [] #{}) => [])
+      (planner/plan [] #{} {}) => [])
 
 (def people #{"Alice" "Bob" "Cathy" "Dave" "Erin"
               "Fred" "Gretl" "Harald" "Irene"
@@ -28,6 +28,37 @@
    {:person-name "Matilda" :table-name "C" :chair 2}
    {:person-name "Niel" :table-name "C" :chair 3}
    {:person-name "Olga" :table-name "C" :chair 4}])
+
+(def groups {"Asocial" {:members #{"Alice" "Bob"}}
+             "Bearded" {:members #{"Bob" "Dave" "Niel"}}})
+
+(def group-member-pairs
+  '(#{"Alice" "Bob"}
+    #{"Dave" "Bob"} #{"Niel" "Dave"} #{"Niel" "Bob"}))
+
+(fact "create a list of sets of each pair of people of groups"
+      (planner/create-group-member-pairs groups)
+      => group-member-pairs)
+
+(def placements-1-person-name-set-per-table
+  '(#{"Alice" "Bob" "Cathy" "Dave" "Erin" "Fred"}
+    #{"Gretl" "Harald" "Irene" "Jacob"}
+    #{"Karen" "Linus" "Matilda" "Niel" "Olga"}))
+
+(fact "grouping people per table in sets"
+      (planner/create-person-name-set-per-table sorted-placements-1)
+      => placements-1-person-name-set-per-table)
+
+(fact "counting the grouped pairs of people: Alice-Bob, Bob-Dave, Bob-Niel, Dave-Niel"
+      (planner/grouped-pair-count {}) => 0
+      (planner/grouped-pair-count groups) => 4)
+
+(fact "counting the satisfied groupings in a placement"
+      (planner/count-satisfied-groupings #{} {}) => 0
+      (planner/count-satisfied-groupings sorted-placements-1 groups) => 2)
+
+(fact "groups of a single person is never satisfied"
+      (planner/count-satisfied-groupings sorted-placements-1 {"Outsider" {:members #{"Alice"}}}) => 0)
 
 (def sorted-placements-2
   [{:person-name "Alice" :table-name "A" :chair 0}
@@ -52,6 +83,9 @@
    :distance {:max 120000
               :current 89000
               :percentage 74}
+   :groupings {:pairwise-total 4
+               :pairwise-satisfied 2
+               :percentage-satisfied 50}
    :placements sorted-placements-1})
 
 (def sorted-planned-event-2
@@ -61,13 +95,17 @@
    :distance {:max 120000
               :current 89000
               :percentage 74}
+   :groupings {:pairwise-total 4
+               :pairwise-satisfied 2
+               :percentage-satisfied 50}
    :placements sorted-placements-2})
 
 (fact "Planning one sorted event returns a sorted seating plan"
-      (planner/plan [events-test/event-1] people)
+      (planner/plan [events-test/event-1] people groups)
       => [sorted-planned-event-1])
 
 (fact "Planning two sorted events returns another sorted seating plan"
       (planner/plan [events-test/event-1 events-test/event-2]
-                           people)
+                    people
+                    groups)
       => [sorted-planned-event-1 sorted-planned-event-2])

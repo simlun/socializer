@@ -5,6 +5,15 @@
             [socializer.planner :as planner]
             [socializer.planner-tests :as planner-tests]))
 
+(fact "a set of pairs of things can be created"
+      (distance/create-pairs #{}) => nil
+      (distance/create-pairs [1 2 3]) => [#{1 2}
+                                          #{1 3}
+                                          #{2 3}]
+      (distance/create-pairs #{"A" "B" "C"}) => [#{"A" "B"}
+                                                 #{"A" "C"}
+                                                 #{"B" "C"}])
+
 (def expected-initial-distance-matrix
   {#{"Fred" "Bob"} 1000, #{"Matilda" "Alice"} 1000, #{"Harald" "Matilda"} 1000,
    #{"Harald" "Alice"} 1000, #{"Niel" "Jacob"} 1000, #{"Linus" "Gretl"} 1000,

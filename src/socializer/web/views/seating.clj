@@ -14,6 +14,13 @@
   [percentage]
   (html/content (str percentage "%")))
 
+(defn table-placement
+  [event-plan]
+  (html/clone-for [placement (:placements event-plan)]
+                  [:.person-name] (html/content (:person-name placement))
+                  [:.table-name] (html/content (:table-name placement))
+                  [:.chair] (html/content (str (:chair placement))))
+  )
 
 (html/defsnippet plan-snippet "templates/seating-plan.html"
   [:#content]
@@ -24,19 +31,17 @@
                             [:.event-time] (html/content (:time (:event event-plan)))
                             [:.event-name] (html/content (:name (:event event-plan)))
 
-                            [:.person-sorted-table-placement
-                             :.table-placement] (html/clone-for [placement (:placements event-plan)]
-                                                                [:.person-name] (html/content (:person-name placement))
-                                                                [:.table-name] (html/content (:table-name placement))
-                                                                [:.chair] (html/content (str (:chair placement))))
+                            [:.person-sorted-table-placement :.table-placement] (table-placement event-plan)
 
                             [:.distance-to-reduce.progress-bar] (set-progress-bar-width (-> event-plan :distance :percentage))
                             [:.distance-to-reduce :span] (set-progress-bar-label (-> event-plan :distance :percentage))
                             [:.distance-reduced.progress-bar] (set-progress-bar-width (- 100 (-> event-plan :distance :percentage)))
                             [:.distance-reduced :span] (set-progress-bar-label (- 100 (-> event-plan :distance :percentage)))
 
-;TODO Satisfied groupings progress bars
-
+                            [:.satisfied-groupings.progress-bar] (set-progress-bar-width (-> event-plan :groupings :percentage-satisfied))
+                            [:.satisfied-groupings :span] (set-progress-bar-label (-> event-plan :groupings :percentage-satisfied))
+                            [:.dissatisfied-groupings.progress-bar] (set-progress-bar-width (- 100 (-> event-plan :groupings :percentage-satisfied)))
+                            [:.dissatisfied-groupings :span] (set-progress-bar-label (- 100 (-> event-plan :groupings :percentage-satisfied)))
                             ))
 
 (defn plan
@@ -45,4 +50,5 @@
                             :title "Seating Plan"
                             :active-nav "plan"
                             :content (plan-snippet (planner/plan (vals (:events session))
-                                                                 (:people session)))})))
+                                                                 (:people session)
+                                                                 (:groups session)))})))

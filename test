@@ -1,0 +1,20 @@
+#!/bin/bash -e
+
+TICKET_TESTS=$(find . -regex "\./tickets/.*/test")
+
+for TEST in $TICKET_TESTS; do
+  echo "| Testing ${TEST}..."
+  echo "+--------------------------------------------------------------------+"
+  set +e
+  $TEST
+  RESULT=$?
+  set -e
+  echo "+--------------------------------------------------------------------+"
+  if [ "$RESULT" != "0" ]; then
+      echo "TEST FAILED!"
+      exit 1
+  fi
+  echo
+done
+
+echo "All tests OK"

@@ -6,6 +6,7 @@ Ideas
 * TDD
 * Deploy to Heroku
 * Deploy as .deb
+* Run locally
 * Clojure is fun
 
 * People/Person
@@ -41,7 +42,7 @@ Ideas
 Stories
 =======
 
-* Create an automatic arbitrary Table placement for a few People at a few Tables for a single Event
+* [1_create-arbitrary-single-seating-plan] Create an automatic arbitrary Table placement for a few People at a few Tables for a single Event
 * Create an automatic arbitrary Table placement for a few People at a few Tables for multiple Events
 
 * Print table seating lists
@@ -63,7 +64,7 @@ Stories
 Workflows
 =========
 
-* First screen is a landing page
+* First screen is the screen for creating a new event
     * Create new Event
     * Sign in to continue with your previous events
 

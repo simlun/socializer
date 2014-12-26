@@ -6,5 +6,5 @@
   (testing "Selenium WebDriver"
     (taxi/set-driver! {:browser :phantomjs})
     (taxi/to "http://www.example.com/")
-    (is (.contains (taxi/text "body") "used for illustrative examples"))
+    (is (.contains (taxi/text "body") "used for illustrative examplez"))
     (taxi/quit)))

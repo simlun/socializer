@@ -1,0 +1,4 @@
+lein: lein2
+jdk:
+  - openjdk7
+script: ./test

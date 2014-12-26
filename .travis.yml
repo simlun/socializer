@@ -2,4 +2,5 @@ language: clojure
 lein: lein
 jdk:
   - openjdk7
-script: ./test
+install: true
+script: "./test"

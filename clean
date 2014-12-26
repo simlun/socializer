@@ -1,0 +1,6 @@
+#!/bin/bash -e
+
+(
+  cd code/system-tests
+  lein clean
+)

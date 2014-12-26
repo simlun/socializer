@@ -1,3 +1,5 @@
 #!/bin/bash -e
-
-echo "Foo bar baz"
+(
+  cd code/system-tests
+  lein test :only system-tests.test-create-seating-plan/test-single
+)

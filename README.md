@@ -3,6 +3,8 @@ Socializer
 
 _Heuristic for socializing efficiently ad infinitum_
 
+![Build status of develop branch](https://travis-ci.org/simlun/socializer.svg?branch=develop)
+
 
 Background Story
 ----------------

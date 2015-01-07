@@ -24,6 +24,8 @@ echo "| Checking requirements"
 echo "+--------------------------------------------------------------------+"
 assert_installed lein
 assert_installed phantomjs
+assert_installed nc
+assert_installed curl
 echo "+--------------------------------------------------------------------+"
 echo
 

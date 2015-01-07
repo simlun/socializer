@@ -1,0 +1,38 @@
+#!/bin/bash -e
+
+echo ">>> Starting development web server"
+pushd code/socializer.web-server
+lein trampoline run &
+SERVER_PID=$!
+popd
+
+function cleanup {
+  echo ">>> Stopping web server"
+  kill $SERVER_PID
+}
+
+echo "Waiting for web server to start on port 8000"
+TIMEOUT_COUNTER=0
+until nc -zw2 localhost 8000 &> /dev/null
+do
+  if [ $TIMEOUT_COUNTER -gt 10 ]; then
+    echo "ERROR: Timed out while waiting for the web server to start"
+    cleanup
+    exit 1
+  fi
+  printf .
+  sleep 1
+  TIMEOUT_COUNTER=$((TIMEOUT_COUNTER+1))
+done
+
+echo ">>> Testing HTTP connectivity"
+RESPONSE=$(curl http://localhost:8000/test)
+if [ "$RESPONSE" != "OK" ]; then
+  echo "Test failed! Response was: '$RESPONSE'"
+  echo "But was expected to be: 'OK'"
+  cleanup
+  exit 1
+else
+  cleanup
+  echo "Test OK"
+fi

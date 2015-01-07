@@ -1,7 +1,7 @@
 Create Single Arbitrary Seating Plan
 ====================================
 
-This is a web application. Below follows the initial scenario:
+Below follows the initial scenario:
 
 
 Scenario

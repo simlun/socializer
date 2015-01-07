@@ -1,5 +1,37 @@
 #!/bin/bash -e
 
+#
+# Helper functions
+#
+
+function fail {
+  MESSAGE=$1
+  echo $MESSAGE
+  exit 1
+}
+
+function assert_installed {
+  PROGRAM=$1
+  which $PROGRAM || fail "ERROR: Program '$PROGRAM' was not installed"
+}
+
+
+#
+# Test the development environment
+#
+
+echo "| Checking requirements"
+echo "+--------------------------------------------------------------------+"
+assert_installed lein
+assert_installed phantomjs
+echo "+--------------------------------------------------------------------+"
+echo
+
+
+#
+# Tests associated with a development ticket
+#
+
 TICKET_TESTS=$(find . -regex "\./tickets/.*/test")
 
 for TEST in $TICKET_TESTS; do
